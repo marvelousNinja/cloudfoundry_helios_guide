@@ -43,8 +43,14 @@ GRANT ALL PRIVILEGES ON DATABASE cf_helios_db TO cf_helios_user;
 CREATE EXTENSION hstore;
 \q
 ```
-Now, add ```listen_addresses = '*'``` to ```/etc/postgresql/9.1/main/postgresql.conf```
-and ```host all all 0.0.0.0/0 md5``` to ```/etc/postgresql/9.1/main/pg_hba.conf```.
+Now, add the following line to ```/etc/postgresql/9.1/main/postgresql.conf```:
+```
+listen_addresses = '*'
+```
+And this line to ```/etc/postgresql/9.1/main/pg_hba.conf```:
+```
+host all all 0.0.0.0/0 md5
+```
 This will allow PostgreSQL to receive remote connections. Note, that depending on your OS, these files might be in a different place.
 Restart PostgreSQL for changes to take effect:
 ```
