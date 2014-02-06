@@ -3,11 +3,11 @@ Deploying Helios to CloudFoundry
 
 # Introduction
 
-So, you've decided to play with Helios and deploy it to CloudFoundry. Good for you.
+So, you've decided to play with Helios and deploy your app to CloudFoundry. Good for you.
 Let's grab some toys and:
-1. Install & Setup PostgreSQL
-2. ... and Helios.
-3. ... and CloudFoundry console.
+*  Install & Setup PostgreSQL
+*  ... and Helios.
+* ... and CloudFoundry console.
 
 But, just before we start, let's check our Ruby version. In your terminal:
 ```
