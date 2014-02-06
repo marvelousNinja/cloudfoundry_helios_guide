@@ -84,7 +84,7 @@ Let's change ```cf_helios_app/.env``` file to look like this:
 DATABASE_URL=postgres://cf_helios_user:cf_helios_password@localhost/cf_helios_db
 ```
 Now you can start your app with ```helios start``` inside of ```cf_helios_app``` directory.
-Go on, open http://localhost:5000/admin/ in your browser, to see if it works.
+Go on, open ```http://localhost:5000/admin/``` in your browser, to see if it works.
 
 
 # Installing CloudFoundry console
