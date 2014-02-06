@@ -6,8 +6,8 @@ Deploying Helios to CloudFoundry
 So, you've decided to play with Helios and deploy your app to CloudFoundry. Good for you.
 Let's grab some toys and:
 *  Install & Setup PostgreSQL
-*  ... and Helios.
-* ... and CloudFoundry console.
+*  ... and Helios
+*  ... and CloudFoundry console
 
 But, just before we start, let's check our Ruby version. In your terminal:
 ```
@@ -15,7 +15,7 @@ ruby -v
 # ruby 1.9.3p484 (2013-11-22 revision 43786) [x86_64-linux]
 ```
 
-As you can see, I'm using Ruby 1.9.3 (newer versions should do fine too). Also, I prefer to use RVM and gemsets to play around.
+As you can see, I'm using Ruby 1.9.3 (and newer versions should do just fine). Also, I prefer to use RVM and gemsets to play around.
 Let's create an empty gemset.
 ```
 rvm gemset use 1.9.3-p484@cf_helios --create
@@ -27,7 +27,7 @@ rvm gemset use 1.9.3-p484@cf_helios --create
 Now we're ready to have some fun. Let's install PostgreSQL.
 
 # Installing PostgreSQL
-
+PostgreSQL is one of Helios external dependencies. Helios uses PostgreSQL hstore extension, so we're going to install it too.
 On my Ubuntu 12.04 LTS I did it by this:
 ```
 sudo apt-get install postgresql-9.1 posgresql-contrib-9.1
@@ -43,11 +43,13 @@ GRANT ALL PRIVILEGES ON DATABASE cf_helios_db TO cf_helios_user;
 CREATE EXTENSION hstore;
 \q
 ```
-So, we've created user named ```cf_helios_user``` and database ```cf_helios_db```.
-Since Helios uses PostgreSQL hstore extension, we needed to install it too.
 Now, add ```listen_addresses = '*'``` to ```/etc/postgresql/9.1/main/postgresql.conf```
 and ```host all all 0.0.0.0/0 md5``` to ```/etc/postgresql/9.1/main/pg_hba.conf```.
-This will allow us to connect to PostgreSQL remotely.
+This will allow PostgreSQL to receive remote connections. Note, that depending on your OS, these files might be in a different place.
+Restart PostgreSQL for changes to take effect:
+```
+sudo service postgresql restart
+```
 
 # Installing Helios
 Let's install Helios itself
@@ -70,12 +72,12 @@ helios new cf_helios_app
 # [master (root-commit) ad7e12a] Initial Commit
 # 6 files changes, 200 insertions(+) ...
 ```
-It will create ```ch_helios_app``` folder in current directory.
+It will create ```ch_helios_app``` folder in your current directory.
 Let's change ```cf_helios_app/.env``` file to look like this:
 ````
 DATABASE_URL=postgres://cf_helios_user:cf_helios_password@localhost/cf_helios_db
 ```
-Now you can start it with ```helios start``` inside of ```cf_helios_app``` directory.
+Now you can start your app with ```helios start``` inside of ```cf_helios_app``` directory.
 Go on, open http://localhost:5000/admin/ in your browser, to see if it works.
 
 
