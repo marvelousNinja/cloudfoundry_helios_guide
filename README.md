@@ -128,17 +128,6 @@ cf login
 # Switching to space dev... OK
 
 
-## INSTALLING HELIOS
-
-# Let's install helios itself
-gem install helios
-# Fetching: highline-1.6.20.gem (100%)
-# Successfully installed highline-1.6.20...
-# ...
-# Installing ri documentation for venice-0.2.0
-# Installing ri documentation for zurb-foundation-4.1.2
-# 52 gems installed
-
 ## CREATING A HELIOS APPLICATION
 
 helios new cf_helios_app
