@@ -280,11 +280,12 @@ slc lb model company
 # Created company model.
 ```
 
-Check out ```http://localhost:3000/explorer/``` for new toys. 
+Check out ```http://localhost:3000/explorer/``` for a bunch of new toys. 
 Only one line of code left before...
 
 ## ...Deploying to CloudFoundry (again)
-Almost like 'one ring to rule them all':
+Almost like
+> One ring to rule them all...
 ```
 cf push
 # Name> loopback
