@@ -5,9 +5,9 @@ Deploying Helios to CloudFoundry
 
 So, you've decided to play with Helios and deploy your app to CloudFoundry. Good for you.
 Let's grab some toys and:
-*  Install & Setup PostgreSQL
+*  Install & setup PostgreSQL
 *  ... and Helios
-*  ... and CloudFoundry console
+*  ... and CloudFoundry Command Line Interface
 
 But, just before we start, let's check our Ruby version. In your terminal:
 ```
@@ -16,7 +16,6 @@ ruby -v
 ```
 
 As you can see, I'm using Ruby 1.9.3 (and newer versions should do just fine). Also, I prefer to use RVM and gemsets to play around.
-Let's create an empty gemset.
 ```
 rvm gemset use 1.9.3-p484@cf_helios --create
 # Using 1.9.3-p484@cf_helios with gemset cf_helios
@@ -24,15 +23,15 @@ rvm gemset use 1.9.3-p484@cf_helios --create
 # ruby-1.9.3-p484 - #generating cf_helios wrappers
 ```
 
-Now we're ready to have some fun. Let's install PostgreSQL.
+Now we're ready to have some fun.
 
 # Installing PostgreSQL
-PostgreSQL is one of Helios external dependencies. Helios uses PostgreSQL hstore extension, so we're going to install it too.
+PostgreSQL is one of Helios external dependencies. Helios uses PostgreSQL hstore extension, so we're going to install it too. There's another thing though.
 Since we're going to deploy our app to CloudFoundry we need to provide PostgreSQL service. There is a couple of ways to do this.
 If your existing CloudFoundry installation already has PostgreSQL service (or way to create one), you can just bind it to your app.
 However, I had no other way but to provide my own PostgreSQL service. Let's begin with local setup. 
 
-On my Ubuntu 12.04 LTS I did it by this:
+Simplest way to do it on Ubuntu 12.04 LTS:
 ```
 sudo apt-get install postgresql-9.1 posgresql-contrib-9.1
 ```
@@ -55,17 +54,21 @@ Add the following line to ```/etc/postgresql/9.1/main/postgresql.conf```:
 ```
 listen_addresses = '*'
 ```
+
 And this line to ```/etc/postgresql/9.1/main/pg_hba.conf```:
 ```
 host all all 0.0.0.0/0 md5
 ```
-Note, that depending on operating system, these files might be in a different place.
+
+Note, that depending on operating system, these files might be in a different place. Also, don't forget about firewalls.
+PostgreSQL is running on 5432 port by default.
 Restart PostgreSQL for changes to take effect:
 ```
 sudo service postgresql restart
 ```
 
 # Installing Helios
+
 Let's install Helios itself
 ```
 gem install helios
@@ -76,6 +79,7 @@ gem install helios
 # Installing ri documentation for zurb-foundation-4.1.2
 # 52 gems installed
 ```
+
 To create an application use the following code:
 ```
 helios new cf_helios_app
@@ -91,10 +95,11 @@ Let's change ```cf_helios_app/.env``` file to look like this:
 ````
 DATABASE_URL=postgres://cf_helios_user:cf_helios_password@localhost/cf_helios_db
 ```
+
 Now you can start your app with ```helios start``` inside of ```cf_helios_app``` directory.
 Go on, open ```http://localhost:5000/admin/``` in your browser, to see if it works.
 
-# Installing CloudFoundry console
+# Installing CloudFoundry CLI
 
 CloudFoundry console installation is simple as it can be:
 ```
@@ -131,9 +136,10 @@ cf login
 # Switching to space dev... OK
 ```
 
-Now we're almost ready to deploy our application to CloudFoundry.
+We're almost ready to deploy our application to CloudFoundry.
 
 # Just before deployment
+
 As I said before, in order to deploy our app, we need to provide it PostgreSQL service. Here's how to create
 so called 'user provided' service in CloudFoundry. In your terminal:
 ```
@@ -157,7 +163,7 @@ cf create-service
 # Creating service postgresql-d15b3... OK
 ```
 
-Now let's create ```.cfignore``` file inside of ```cf_helios_app``` directory and fill it with these lines:
+Let's create ```.cfignore``` file inside of ```cf_helios_app``` directory and fill it with these lines:
 ```
 .sass-cache
 .env
@@ -165,6 +171,7 @@ Now let's create ```.cfignore``` file inside of ```cf_helios_app``` directory an
 That's it!
 
 # Deploying to CloudFoundry
+
 After all we've done in this guide, it's going to be pretty easy. Just follow the directions of CloudFoundry console.
 Inside of ```cf_helios_app``` directory:
 ```
@@ -224,10 +231,12 @@ cf push
 #   1 of 1 instances running (1 running)
 # Push successful! App 'helios' available at helios.cloudfoundry.yourcfdomain.com
 ```
+
 Now you can access your Helios app by http://helios.cloudfoundry.yourcfdomain.com/admin. Note, that
 CloudFoundry replaced application port (from 5000 to 80).
 
 # Useful links
+
 In case of trouble or unbearable interest, here's a list of some useful links on the topic.
 *  [Helios Github page][1]
 *  [CloudFoundry CLI reference][2]
