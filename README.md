@@ -285,8 +285,8 @@ Only one line of code left before...
 
 ## ...Deploying to CloudFoundry (again)
 Almost like
-> One ring to rule them all, one ring to find them,
-One ring to bring them all and in the darkness bind them.
+> One ring to rule them all, one ring to find them,  
+> One ring to bring them all and in the darkness bind them.  
 
 ```
 cf push
