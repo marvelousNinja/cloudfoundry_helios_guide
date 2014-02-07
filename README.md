@@ -226,3 +226,17 @@ cf push
 ```
 Now you can access your Helios app by http://helios.cloudfoundry.yourcfdomain.com/admin. Note, that
 CloudFoundry replaced application port (from 5000 to 80).
+
+# Useful links
+In case of trouble or unbearable interest, here's a list of some useful links on the topic.
+*  [Helios Github page][1]
+*  [CloudFoundry CLI reference][2]
+*  [Key facts application deploying application to CloudFoundry][3]
+*  [PostgreSQL documentation: pg_hba.conf][4]
+*  [PostgreSQL documentation: Connections and Authentication][5]
+
+[1]: https://github.com/helios-framework/helios
+[2]: http://docs.cloudfoundry.com/docs/using/managing-apps/cf/
+[3]: http://docs.cloudfoundry.com/docs/using/deploying-apps/
+[4]: http://www.postgresql.org/docs/9.1/static/auth-pg-hba-conf.html
+[5]: http://www.postgresql.org/docs/9.1/static/runtime-config-connection.html
