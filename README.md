@@ -148,11 +148,6 @@ cf create-service
 # 2: user-provided , via 
 # What kind?> 2
 
-# Name?> \alexander@gonzo-H77MU3:~$ cf create-service
-# 1: mongodb , via 
-# 2: user-provided , via 
-# What kind?> 2
-
 # Name?> postgresql-d15b3   
 
 # What credential parameters should applications use to connect to this service instance?
@@ -196,7 +191,7 @@ cf push
 # 2: none
 # Domain> 1                       
 
-# Binding helios.cloudfoundry.altoros.com to helios... OK
+# Binding helios.cloudfoundry.yourcfdomain.com to helios... OK
 
 # Create services for application?> n
 
