@@ -1,4 +1,4 @@
-Deploying Helios to CloudFoundry
+Deploying Helios and LoopBack to CloudFoundry
 =========================
 
 # Introduction
@@ -28,7 +28,7 @@ rvm gemset use 1.9.3-p484@cf_helios --create --default
 
 Now we're ready to have some fun.
 
-# Installing PostgreSQL
+## Installing PostgreSQL
 PostgreSQL is one of Helios external dependencies. Helios uses PostgreSQL hstore extension, so we're going to install it too. There's another thing though.
 Since we're going to deploy our app to CloudFoundry we need to provide PostgreSQL service. There is a couple of ways to do this.
 If your existing CloudFoundry installation already has PostgreSQL service (or way to create one), you can just bind it to your app.
@@ -70,9 +70,9 @@ Restart PostgreSQL for changes to take effect:
 sudo service postgresql restart
 ```
 
-# Installing Helios
+## Installing Helios
 
-Let's install Helios itself
+Let's install Helios itself:
 ```
 gem install helios
 # Fetching: highline-1.6.20.gem (100%)
@@ -102,7 +102,7 @@ DATABASE_URL=postgres://cf_helios_user:cf_helios_password@localhost/cf_helios_db
 Now you can start your app with ```helios start``` inside of ```cf_helios_app``` directory.
 Go on, open ```http://localhost:5000/admin/``` in your browser, to see if it works.
 
-# Installing CloudFoundry CLI
+## Installing CloudFoundry CLI
 
 CloudFoundry console installation is simple as it can be:
 ```
@@ -141,7 +141,7 @@ cf login
 
 We're almost ready to deploy our application to CloudFoundry.
 
-# Just before deployment
+## Just before deployment
 
 As I said before, in order to deploy our app, we need to provide it PostgreSQL service. Here's how to create
 so called 'user provided' service in CloudFoundry. In your terminal:
@@ -168,7 +168,7 @@ Let's create ```.cfignore``` file inside of ```cf_helios_app``` directory and fi
 ```
 That's it!
 
-# Deploying to CloudFoundry
+## Deploying to CloudFoundry
 
 After all we've done in this guide, it's going to be pretty easy. Just follow the directions of CloudFoundry console.
 Inside of ```cf_helios_app``` directory:
@@ -242,7 +242,7 @@ There're some prerequisites. And again, this is going to be much, much easier. H
 *  ... and StrongLoop CLI
 
 
-# Installing Node.js and npm
+## Installing Node.js and npm
 
 Node.js and npm in Ubuntu repo are pretty old. And as you've seen before - I like to play with version managers.
 Let's install NVM:
@@ -256,7 +256,7 @@ nvm install 0.10
 nvm alias default 0.10
 ```
 
-# Installing StrongLoop CLI
+## Installing StrongLoop CLI
 You would never believe how I did it:
 ```
 npm install -g strong-cli
@@ -283,7 +283,7 @@ slc lb model company
 Check out ```http://localhost:3000/explorer/``` for new toys. 
 Only one line of code left before...
 
-# Deploying to CloudFoundry (again)
+## ...Deploying to CloudFoundry (again)
 Almost like 'one ring to rule them all':
 ```
 cf push
