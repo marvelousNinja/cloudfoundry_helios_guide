@@ -3,7 +3,10 @@ Deploying Helios to CloudFoundry
 
 # Introduction
 
-So, you've decided to play with Helios and deploy your app to CloudFoundry. Good for you.
+So, you've decided to play with Helios and LoopBack. And even more: you want to deploy your app to CloudFoundry.
+Lucky for you, I've got just the ticket.
+
+# Helios
 Let's grab some toys and:
 *  Install & setup PostgreSQL
 *  ... and Helios
@@ -17,7 +20,7 @@ ruby -v
 
 As you can see, I'm using Ruby 1.9.3 (and newer versions should do just fine). Also, I prefer to use RVM and gemsets to play around.
 ```
-rvm gemset use 1.9.3-p484@cf_helios --create
+rvm gemset use 1.9.3-p484@cf_helios --create --default
 # Using 1.9.3-p484@cf_helios with gemset cf_helios
 # ruby-1.9.3-p484 - #gemset created /home/alexander/.rvm/gems/ruby-1.9.3-p484@cf_helios
 # ruby-1.9.3-p484 - #generating cf_helios wrappers
@@ -230,17 +233,128 @@ cf push
 Now you can access your Helios app by http://helios.cloudfoundry.yourcfdomain.com/admin. Note, that
 CloudFoundry replaced application port (from 5000 to 80).
 
+Haven't tired yet? We still have LoopBack (StrongLoop) to play with. I hope, he doesn't mind.
+
+# LoopBack
+There're some prerequisites. And again, this is going to be much, much easier. Here's all we need to do:
+*  Install Node.js
+*  ... and Node Package Manager
+*  ... and StrongLoop CLI
+
+
+# Installing Node.js and npm
+
+Node.js and npm in Ubuntu repo are pretty old. And as you've seen before - I like to play with version managers.
+Let's install NVM:
+```
+curl https://raw.github.com/creationix/nvm/master/install.sh | sh
+```
+
+Reopen your terminal and type this:
+```
+nvm install 0.10
+nvm alias default 0.10
+```
+
+# Installing StrongLoop CLI
+You would never believe how I did it:
+```
+npm install -g strong-cli
+```
+And we're ready to create our LoopBack app.
+Here's how:
+```
+slc lb project cf_loopback_app
+# ...
+# Create a model in your app:
+#   $ cd cf_loopback_app
+#   $ slc lb model product -i
+# Run your Project:
+#   $ slc run .
+
+```
+It will create ```cf_loopback_app``` folder in your current directory.
+We can create a simple model to play with. Inside of ```cf_loopback_app``` do the following:
+```
+slc lb model company
+# Created company model.
+```
+
+Check out ```http://localhost:3000/explorer/``` for new toys. 
+Only one line of code left before...
+
+# Deploying to CloudFoundry (again)
+Almost like 'one ring to rule them all':
+```
+cf push
+# Name> loopback
+
+# Instances> 1
+
+# 1: 128M
+# 2: 256M
+# 3: 512M
+# 4: 1G
+# Memory Limit> 3   
+
+# Creating loopback... OK
+
+# 1: loopback
+# 2: none
+# Subdomain> 1       
+
+# 1: cloudfoundry.yourcfdomain.com
+# 2: none
+# Domain> 1                       
+
+# Creating route loopback.cloudfoundry.yourcfdomain.com... OK
+# Binding loopback.cloudfoundry.yourcfdomain.com to loopback... OK
+
+# Create services for application?> n
+
+# Bind other services to application?> n
+
+# Save configuration?> y
+
+# Saving to manifest.yml... OK
+# Uploading loopback... OK
+# Preparing to start loopback... OK
+# -----> Downloaded app package (8.7M)
+# ...
+# -----> Installing dependencies
+#        npm WARN package.json cf_loopback_app@0.0.0 No description
+#        npm WARN package.json cf_loopback_app@0.0.0 No repository field.
+#        npm WARN package.json cf_loopback_app@0.0.0 No README data
+# -----> Caching node_modules directory for future builds
+# -----> Cleaning up node-gyp and npm artifacts
+# -----> No Procfile found; Adding npm start to new Procfile
+# -----> Building runtime environment
+# -----> Uploading droplet (14M)
+# Checking status of app 'loopback'...
+#   0 of 1 instances running (1 starting)
+#   1 of 1 instances running (1 running)
+# Push successful! App 'loopback' available at loopback.cloudfoundry.yourcfdomain.com
+```
+
+Don't forget that CloudFoundry has its own preferences about ports:
+```http://loopback.cloudfoundry.yourcfdomain.com/explorer/```
+
 # Useful links
 
 In case of trouble or unbearable interest, here's a list of some useful links on the topic.
-*  [Helios Github page][1]
 *  [CloudFoundry CLI reference][2]
 *  [Key facts application deploying application to CloudFoundry][3]
+*  [Helios Github page][1]
 *  [PostgreSQL documentation: pg_hba.conf][4]
 *  [PostgreSQL documentation: Connections and Authentication][5]
+*  [NVM Github page][6]
+*  [Loopback Github page][7]
+
 
 [1]: https://github.com/helios-framework/helios
 [2]: http://docs.cloudfoundry.com/docs/using/managing-apps/cf/
 [3]: http://docs.cloudfoundry.com/docs/using/deploying-apps/
 [4]: http://www.postgresql.org/docs/9.1/static/auth-pg-hba-conf.html
 [5]: http://www.postgresql.org/docs/9.1/static/runtime-config-connection.html
+[6]: https://github.com/creationix/nvm
+[7]: https://github.com/strongloop/loopback
