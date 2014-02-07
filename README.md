@@ -212,7 +212,7 @@ cf push
 # -----> Downloaded app package (8.0K)
 # -----> Using Ruby version: ruby-1.9.3
 # -----> Installing dependencies using Bundler version 1.3.2
-#        Running: bundle install --without development:test --path vendor/bundle --binstubs vendor/bundle/bin --deployment
+#        Running: bundle install --without development:test...
 #        Fetching gem metadata from https://rubygems.org/........
 #        Fetching gem metadata from https://rubygems.org/..
 #        Installing i18n (0.6.9)
