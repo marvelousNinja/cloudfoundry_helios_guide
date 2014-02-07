@@ -337,7 +337,9 @@ cf push
 ```
 
 Don't forget that CloudFoundry has its own preferences about ports:
-```http://loopback.cloudfoundry.yourcfdomain.com/explorer/```
+```
+http://loopback.cloudfoundry.yourcfdomain.com/explorer/
+```
 
 # Useful links
 
